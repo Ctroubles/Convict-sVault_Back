@@ -223,7 +223,9 @@ userRoutes.get("/email/:email", async(req, res)=>{
             </div>
             <hr>
             <div class="footer">
-                <p>Todos los derechos reservados a Super Reo Y+ y</p>
+            <p>Cada compra realizada contribuye a apoyar a personas en situación de reclusión. Si tienes un familiar que necesita ayuda mientras se encuentra privado de libertad, nuestro equipo está aquí para brindarte asistencia.
+             Agradecemos tu apoyo y confianza. ¡Tu apoyo marca la diferencia!</p>
+                <p>Todos los derechos reservados a Super Reo Y+ y sus desarrolladores</p>
             </div>
         </body>
         </html>
