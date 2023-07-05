@@ -1,6 +1,22 @@
 const { Schema, model }= require("mongoose");
 
 const userSchema= new Schema({
+    isActive: {
+        type: Boolean,
+        default: true
+    },
+    isAdmin:{
+        type: Boolean,
+        default: false,
+    },
+    phone: {
+        type: Number,
+        required:false,
+    },    
+    dni: {
+        type: Number,
+        required:false,
+    },
     picture:{
         type: String,
     },    
@@ -8,23 +24,22 @@ const userSchema= new Schema({
         type: String,
         required: true
     },    
+    gender:{
+        type: String,
+        enum:["H","M","S"],
+        default: "S",
+    },    
     surname:{
         type: String,
     },
     email:{
         type: String,
-        required: true
+        required: true,
+        unique: true,
     },
-   isAdmin:{
-    type: Boolean,
-    default: false,
-   },
-   isActive: {
-    type: Boolean,
-    default: true
-   },
    userid:{
-    type: String
+    type: String,
+    unique: true,
    },
    adresses: {
     type: Array,
@@ -42,6 +57,14 @@ const userSchema= new Schema({
     default: [],
    }
 });
+
+
+userSchema.pre('save', function(next) {
+    if(this.gender) {
+        this.gender = this.gender.toUpperCase();
+    }   next();
+});
+
 
 const User= model("users", userSchema)
 

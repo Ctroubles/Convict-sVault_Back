@@ -89,7 +89,7 @@ userRoutes.get("/email/:email", async(req, res)=>{
          await updateUser(id, data)
          res.status(200).send("Actualización exitosa")
      } catch (error) {
-         res.status(404).send({error})
+         res.status(400).send({error})
      }
  })
 
@@ -223,7 +223,7 @@ userRoutes.get("/email/:email", async(req, res)=>{
             </div>
             <hr>
             <div class="footer">
-                <p>Todos los derechos reservados a Super Reo Y+ y sus desarrolladores</p>
+                <p>Todos los derechos reservados a Super Reo Y+ y</p>
             </div>
         </body>
         </html>

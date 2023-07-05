@@ -22,21 +22,19 @@ const activateUser = async(id)=>{
 }
 
 const updateUser = async(id, data) => {
-    try {
+        console.log(data)
         const user = await User.findOne({ _id: id });
         if(!user) throw 'No se ha encontrado un componente con ese ID';
         if(data.name) user.name = data.name;
         if(data.surname) user.surname = data.surname;
-        if(data.isActive) user.isActive = data.isActive;
-        if(data.email) user.email = data.email;
-        if(data.orders) user.orders = [...user.orders,data.orders];
-        user.updated_at = Date.now()
-        await user.save()
+        // if(data.isActive) user.isActive = data.isActive;
+        if(data.phone) user.phone = data.phone;
+        if(data.dni) user.dni = data.dni;
+        if(data.gender) user.gender = data.gender;
+        user.updated_at = Date.now();
+        const respuesta = await user.save();
 
-    } catch (error) {
-        throw new Error("Hubo un problema al actualizar usuario")
-    }
-  
+        return user
 }
 
 const giveAdmin = async(id) =>{
