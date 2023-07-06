@@ -76,11 +76,22 @@ userRoutes.get("/email/:email", async(req, res)=>{
  userRoutes.put("/activate/:id", async(req, res)=>{
      const {id}= req.params
      try{
-         return res.status(200).send(await activateUser(id))
+        const user= await activateUser(id)
+         return res.status(200).send(user)
      } catch (error){
          res.status(400).send(error)
      }
  })
+
+ userRoutes.put("/desactivate/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+      const user = await deleteUser(id);
+      res.status(200).send(user);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  });
 
  userRoutes.put("/update/:id", async(req, res)=>{
      try {

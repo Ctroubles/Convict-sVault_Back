@@ -38,7 +38,7 @@ const updateUser = async(id, data) => {
 }
 
 const giveAdmin = async(id) =>{
-    const userxd = await User.findOne({_id: id})
+    const userxd = await User.findById({_id: id})
         if(!userxd){
             throw 'No se ha encontrado un usuario con ese ID'
         }
@@ -47,7 +47,7 @@ const giveAdmin = async(id) =>{
 }
 
 const removeAdmin = async(id) =>{
-    const userxd = await User.findOne({_id: id})
+    const userxd = await User.findById({_id: id})
         if(!userxd){
             throw 'No se ha encontrado un usuario con ese ID'
         }
