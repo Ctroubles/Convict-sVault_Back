@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const {getAllUsers, getUser, getDB, getUserDb} = require("../controllers/user/getUser.js")
 const createUser = require("../controllers/user/createUser")
-const {deleteUser, activateUser, updateUser, giveAdmin, removeAdmin, addOrder} = require('../controllers/user/updateUser.js');
+const {deleteUser, activateUser, updateUser, giveAdmin, removeAdmin, addOrder, updateUserAdrees, deleteAddress, updateAddressById} = require('../controllers/user/updateUser.js');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 // const logo= require("../util/logorecortadoooooo (1).png")
@@ -93,7 +93,7 @@ userRoutes.get("/email/:email", async(req, res)=>{
     }
   });
 
- userRoutes.put("/update/:id", async(req, res)=>{
+userRoutes.put("/update/:id", async(req, res)=>{
      try {
          const {id} = req.params;
          const data = req.body;;
@@ -103,6 +103,43 @@ userRoutes.get("/email/:email", async(req, res)=>{
          res.status(400).send({error})
      }
  })
+ 
+userRoutes.post("/update/address/:id", async(req, res)=>{
+    try {
+        const {id} = req.params;
+        const data = req.body;
+        await updateUserAdrees(id, data);
+        res.status(200).send("Actualización de dirección exitosa");
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({error});
+    }
+})
+
+userRoutes.put("/update/address/:userId/:id", async(req, res)=>{
+    try {
+        const {userId} = req.params;
+        const {id} = req.params;
+        const data = req.body;
+        await updateAddressById(userId, id ,data);
+        res.status(200).send("Actualización de dirección exitosa");
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({error});
+    }
+})
+
+userRoutes.delete("/update/address/:userId/:id", async(req, res)=>{
+    try {
+        const {userId} = req.params;
+        const {id} = req.params;
+        await deleteAddress(userId, id);
+        res.status(200).send("Actualización de dirección exitosa");
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({error});
+    }
+})
 
  userRoutes.put("/giveAdmin/:id", async(req, res)=>{
     const {id}= req.params

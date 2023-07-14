@@ -1,6 +1,6 @@
-const axios = require("axios");
 const User= require("../../models/user");
 const {getUser}=require("./getUser.js")
+const mongoose = require('mongoose');
 
 
 const deleteUser = async (id) =>{
@@ -24,10 +24,9 @@ const activateUser = async(id)=>{
 const updateUser = async(id, data) => {
         console.log(data)
         const user = await User.findOne({ _id: id });
-        if(!user) throw 'No se ha encontrado un componente con ese ID';
+        if(!user) throw 'No se ha encontrado un uario con ese ID';
         if(data.name) user.name = data.name;
         if(data.surname) user.surname = data.surname;
-        // if(data.isActive) user.isActive = data.isActive;
         if(data.phone) user.phone = data.phone;
         if(data.dni) user.dni = data.dni;
         if(data.gender) user.gender = data.gender;
@@ -35,6 +34,45 @@ const updateUser = async(id, data) => {
         const respuesta = await user.save();
 
         return user
+}
+const updateUserAdrees = async(id, data) => {
+    if(!data) throw 'La dirección no puede ser vacía';
+
+    data._id = new mongoose.Types.ObjectId();
+    const user = await User.findByIdAndUpdate(
+        id,
+        { $push: { addresses: data }, $set: { updated_at: Date.now() } },
+        { new: true, useFindAndModify: false } 
+    );
+
+    if (!user) throw 'No se ha encontrado un usuario con ese ID';
+
+    return user;
+}
+const updateAddressById = async (userId, addressId, newData) => {
+    const user = await User.findById(userId, "addresses");
+    if (!user) {
+      throw new Error('User not found');
+    }
+    const indexAddress = user.addresses.findIndex(
+        (address) => address._id.toString() === addressId
+    );
+    if (indexAddress < 0) {
+      throw new Error('Address not found');
+    }
+    user.addresses[indexAddress] = {
+        ...user.addresses[indexAddress],
+        ...newData,
+    }
+    const updatedUser = await user.save(); 
+    return updatedUser;
+};
+  
+const deleteAddress = async(userId, addressId) => {
+    const user = await User.findById(userId, 'addresses');
+    user.addresses = user.addresses.filter(address => address._id.toString() !== addressId);
+    const updatedUser = await user.save();
+    return updatedUser;
 }
 
 const giveAdmin = async(id) =>{
@@ -65,4 +103,4 @@ const addOrder = async(id, order) =>{
 }
 
 
-module.exports= {deleteUser, activateUser, updateUser, giveAdmin, removeAdmin, addOrder}
+module.exports= {deleteUser, activateUser, updateUser, giveAdmin, removeAdmin, addOrder, updateUserAdrees, deleteAddress,updateAddressById}

@@ -17,11 +17,8 @@ const createUser = async (user) => {
         verified: user.email_verified
       });
       const res = await newUser.save();
-      console.log(res)
       return res;
     }
-
-    return user;
   } catch (error) {
     throw new Error('Error al crear el usuario');
   }

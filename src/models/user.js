@@ -39,11 +39,10 @@ const userSchema= new Schema({
     },
    userid:{
     type: String,
-    unique: true,
    },
-   adresses: {
+   addresses: {
     type: Array,
-    required: false
+    default: [],
    },
    orders:{
     type:Array,
