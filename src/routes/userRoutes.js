@@ -159,6 +159,21 @@ userRoutes.delete("/update/address/:userId/:id", async(req, res)=>{
     }
  })
 
+ userRoutes.get("/isAdmin/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+      const user = await getUserById(id);
+      if (user.isAdmin) {
+        res.status(200).json({ isAdmin: true });
+      } else {
+        res.status(200).json({ isAdmin: false });
+      }
+    } catch (error) {
+      res.status(400).json({ error: "Error al obtener el usuario" });
+    }
+  });
+  
+
  userRoutes.put("/orders/:id", async(req, res)=>{
     const {id}= req.params
     const order= req.body
