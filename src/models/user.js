@@ -10,11 +10,11 @@ const userSchema= new Schema({
         default: false,
     },
     phone: {
-        type: Number,
+        type: String,
         required:false,
     },    
     dni: {
-        type: Number,
+        type: String,
         required:false,
     },
     picture:{
