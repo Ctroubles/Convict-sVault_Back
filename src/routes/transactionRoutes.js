@@ -1,6 +1,6 @@
 const express = require('express');
 const { Router }= require("express");
-const { getAllTransactions, getTransactionById, updateTransactionById, deleteTransactionById, createTransaction, calcularIngresos } = require('../controllers/transactionCtrl');
+const { getAllTransactions, getTransactionById, updateTransactionById, deleteTransactionById, createTransaction, calcularIngresos, calculateApprovedCount } = require('../controllers/transactionCtrl');
 
 
 const transactionRoutes= Router()
@@ -34,6 +34,16 @@ transactionRoutes.get('/ingresos', async (req, res) => {
     try {
       const ingresos = await calcularIngresos();
       res.json({ ingresos });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json(error.message);
+    }
+  });
+
+  transactionRoutes.get('/approved-count', async (req, res) => {
+    try {
+      const approvedCount = await calculateApprovedCount();
+      res.json({ approvedCount });
     } catch (error) {
       console.error(error);
       res.status(500).json(error.message);

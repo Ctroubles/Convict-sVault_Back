@@ -50,8 +50,21 @@ const calcularIngresos = async () => {
     } catch (error) {
       console.error('Error al calcular los ingresos:', error);
     }
-  };
 
+};
+
+const calculateApprovedCount = async () => {
+    try {
+      // Aquí puedes realizar la lógica para obtener la cantidad de transacciones en estado aprobado
+      // Por ejemplo, podrías hacer una consulta a la base de datos y contar las transacciones con estado "aprobado"
+      const approvedTransactions = await Transaction.find({ state: '4' });
+      const approvedCount = approvedTransactions.length;
+  
+      return approvedCount;
+    } catch (error) {
+      throw new Error('Error al calcular la cantidad de transacciones aprobadas');
+    }
+  };
 module.exports = {
   getAllTransactions,
   getTransactionById,
@@ -59,4 +72,5 @@ module.exports = {
   updateTransactionById,
   deleteTransactionById,
   calcularIngresos,
+  calculateApprovedCount,
 };
