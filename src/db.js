@@ -8,7 +8,7 @@ const {
     DB_NAME
   } = process.env;
 
-main().catch(console.error);
+  main().catch(err => console.log(err));
 
 async function main() {
     mongoose.set('strictQuery', true);
