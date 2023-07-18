@@ -1,5 +1,5 @@
 const { Router }= require("express");
-const {allProducts, findById, findProduct, findByCategory}= require("../controllers/getProducts.js");
+const {allProducts, findById, findProduct, findByCategory, findProductsByIsInactive, findProductsByIsActive}= require("../controllers/getProducts.js");
 const  createProduct  = require("../controllers/createProduct.js");
 const deleteProduct = require("../controllers/deleteProduct.js");
 const { updateProducts } = require("../controllers/updateProduct.js");
@@ -18,6 +18,25 @@ productRoutes.get("/", async(req, res)=>{
         res.status(404).send(error.message)
     }
 })
+
+productRoutes.get("/active", async (req, res) => {
+    try {
+      const activeProducts = await findProductsByIsActive(true);
+      res.status(200).send(activeProducts);
+    } catch (error) {
+      res.status(404).send(error.message);
+    }
+  });
+  
+  productRoutes.get("/inactive", async (req, res) => {
+    try {
+      const inactiveProducts = await findProductsByIsInactive(false);
+      res.status(200).send(inactiveProducts);
+    } catch (error) {
+      res.status(404).send(error.message);
+    }
+  });
+  
 
 productRoutes.get("/:id", async(req, res)=>{
     const {id}= req.params;
