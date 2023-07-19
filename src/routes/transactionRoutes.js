@@ -50,16 +50,17 @@ transactionRoutes.get('/ingresos', async (req, res) => {
     }
   });
 // Ruta para crear una nueva transacción
-transactionRoutes.post('/create', async (req, res) => {
-  const transactionData = req.body;
-  try {
-    const newTransaction = await createTransaction(transactionData);
-    res.json(newTransaction);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json(error.message);
-  }
-});
+
+// transactionRoutes.post('/create', async (req, res) => {
+//   const transactionData = req.body;
+//   try {
+//     const newTransaction = await createTransaction(transactionData);
+//     res.json(newTransaction);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json(error.message);
+//   }
+// });
 
 // Ruta para actualizar una transacción por ID
 transactionRoutes.put('/:id', async (req, res) => {
@@ -89,6 +90,29 @@ transactionRoutes.delete('/:id', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error al eliminar la transacción' });
+  }
+});
+
+
+transactionRoutes.post('/confirmation', async(req, res) => {
+  const {
+    transactionState,
+    transactionId,
+    description,
+    extra1,
+    // signature,
+    polResponseCode,
+    TX_VALUE,
+    // buyerEmail,
+    // authorizationCode,
+  } = req.query;
+  try {
+    if (transactionState === '4' && polResponseCode === '1'){
+      const newTransaction = await createTransaction({transactionState, transactionId, description, extra1, polResponseCode, TX_VALUE});
+      res.status(201).json(newTransaction);
+    }
+  } catch (error) {
+    res.status(400).send(error)
   }
 });
 
