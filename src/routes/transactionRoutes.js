@@ -57,7 +57,7 @@ transactionRoutes.post('/create', async (req, res) => {
     res.json(newTransaction);
   } catch (error) {
     console.error(error);
-    res.status(500).json(error.message);
+    res.status(411).json(error.message);
   }
 });
 
