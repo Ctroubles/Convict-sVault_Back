@@ -94,26 +94,108 @@ transactionRoutes.delete('/:id', async (req, res) => {
 });
 
 
-transactionRoutes.post('/confirmation', async(req, res) => {
-  const {
-    transactionState,
-    transactionId,
-    description,
-    extra1,
-    // signature,
-    polResponseCode,
-    TX_VALUE,
-    // buyerEmail,
-    // authorizationCode,
-  } = req.query;
-  try {
-    if (transactionState === '4' && polResponseCode === '1'){
-      const newTransaction = await createTransaction({transactionState, transactionId, description, extra1, polResponseCode, TX_VALUE});
-      res.status(201).json(newTransaction);
-    }
-  } catch (error) {
-    res.status(400).send(error)
-  }
-});
+// transactionRoutes.post('/confirmation/confirmation', async (req, res) => {
+//   const {
+//     merchantId,
+//     merchant_name,
+//     merchant_address,
+//     telephone,
+//     merchant_url,
+//     transactionState,
+//     lapTransactionState,
+//     message,
+//     referenceCode,
+//     reference_pol,
+//     transactionId,
+//     description,
+//     trazabilityCode,
+//     cus,
+//     orderLanguage,
+//     extra1,
+//     extra2,
+//     extra3,
+//     polTransactionState,
+//     signature,
+//     polResponseCode,
+//     lapResponseCode,
+//     risk,
+//     polPaymentMethod,
+//     lapPaymentMethod,
+//     polPaymentMethodType,
+//     lapPaymentMethodType,
+//     installmentsNumber,
+//     TX_VALUE,
+//     TX_TAX,
+//     currency,
+//     lng,
+//     pseCycle,
+//     buyerEmail,
+//     pseBank,
+//     pseReference1,
+//     pseReference2,
+//     pseReference3,
+//     authorizationCode,
+//     TX_ADMINISTRATIVE_FEE,
+//     TX_TAX_ADMINISTRATIVE_FEE,
+//     TX_TAX_ADMINISTRATIVE_FEE_RETURN_BASE,
+//     processingDate
+//   } = req.body;
+  
+//   try {
+//     console.log({
+//       merchantId,
+//       merchant_name,
+//       merchant_address,
+//       telephone,
+//       merchant_url,
+//       transactionState,
+//       lapTransactionState,
+//       message,
+//       referenceCode,
+//       reference_pol,
+//       transactionId,
+//       description,
+//       trazabilityCode,
+//       cus,
+//       orderLanguage,
+//       extra1,
+//       extra2,
+//       extra3,
+//       polTransactionState,
+//       signature,
+//       polResponseCode,
+//       lapResponseCode,
+//       risk,
+//       polPaymentMethod,
+//       lapPaymentMethod,
+//       polPaymentMethodType,
+//       lapPaymentMethodType,
+//       installmentsNumber,
+//       TX_VALUE,
+//       TX_TAX,
+//       currency,
+//       lng,
+//       pseCycle,
+//       buyerEmail,
+//       pseBank,
+//       pseReference1,
+//       pseReference2,
+//       pseReference3,
+//       authorizationCode,
+//       TX_ADMINISTRATIVE_FEE,
+//       TX_TAX_ADMINISTRATIVE_FEE,
+//       TX_TAX_ADMINISTRATIVE_FEE_RETURN_BASE,
+//       processingDate
+//     });
+
+//       // await createTransaction(newTransaction)
+
+//       // Ejemplo de respuesta exitosa
+//       return res.status(200).send('Transacción exitosa');
+     
+//   } catch (error) {
+//     return res.status(411).send(error);
+//   }
+// });
 
 module.exports = transactionRoutes;

@@ -18,6 +18,7 @@ const getTransactionById = async (transactionId) => {
 
 const createTransaction = async (transactionData) => {
   try {
+    console.log("hola",transactionData)
     return await Transaction.create(transactionData);
   } catch (error) {
     throw new Error(error.message);
