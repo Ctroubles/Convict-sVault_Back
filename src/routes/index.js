@@ -5,9 +5,13 @@ const userRoutes= require("./userRoutes")
 const cartRoutesc = require('./cartHandlerRoutes');
 const pagosRoutes= require("./pagosRoutes");
 const transactionRoutes = require('./transactionRoutes');
+const bodyParser = require('body-parser');
 const { createTransaction } = require('../controllers/transactionCtrl');
 
 const router = Router();
+
+router.use(bodyParser.urlencoded({ extended: true }));
+router.use(bodyParser.json());
 
 router.use("/products", productRoutes)
 router.use("/upload", uploadProducts)
@@ -72,7 +76,7 @@ router.post('/confirmation/confirmation', async (req, res) => {
         //   merchant_address,
         //   telephone,
         //   merchant_url,
-          transactionState,
+          state:transactionState,
         //   lapTransactionState,
         //   message,
         //   referenceCode,
