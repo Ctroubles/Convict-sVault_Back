@@ -40,7 +40,8 @@ const findById= async(id)=>{
 const findByCategory = async (category) => {
     const regExpCategory = new RegExp(category, "i");
     const prodByCategory = await Products.find({ category: { $in: [regExpCategory] }, isActive: true });
-    if (!prodByCategory.length) {
+
+    if (!Array.isArray(prodByCategory)) {
       throw new Error(`No hay productos con la categoría '${category}'.`);
     }
     return prodByCategory;

@@ -8,7 +8,7 @@ const transactionSchema= new Schema({
     unique: true,
   },
   total: {
-    type: Number,
+    type: String,
     required: true,
     min: 0,
   },
