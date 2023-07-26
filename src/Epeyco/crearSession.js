@@ -1,34 +1,51 @@
 var axios = require('axios');
-var data = '{\r\n    "name": "New Checkout",\r\n    "invoice": "prueba 121",\r\n    "description": "Nueva implementacion de seguridad",\r\n    "currency": "cop",\r\n    "amount": "20000",\r\n    "country": "CO",\r\n    "test": "true",\r\n    "ip": "186.97.212.162"\r\n}';
+const GenereteToken = require('../Epeyco/implementacion');
 
-const GenereteToken = require('./implementacion');
-
-async function makePaymentWithToken() {
+async function makePaymentWithToken(token, datos) {
     try {
-        const token = await GenereteToken();
-        if (!token) {
-            console.log('Error al obtener el token');
-            return;
-        }
-
-        var config = {
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: '{{url_apify}}/payment/session/create',
-            headers: {
-                'Authorization': `Bearer ${token}`, // Aquí se coloca el token obtenido
-                'Content-Type': 'application/json',
-            },
-            data: data
-        };
-
-        const response = await axios(config);
-        console.log(JSON.stringify(response.data));
+      const url_apify = 'https://apify.epayco.co/';
+      var data = {
+        name: datos.name || 'New Checkout',
+        invoice:datos.invoice || 'prueba 121',
+        description:datos.description || 'Nueva implementacion de seguridad',
+        currency:datos.currency || 'cop',
+        amount:datos.amount || '10000',
+        country:datos.country || 'CO',
+        test:datos.test || 'true',
+        ip:datos.ip || '186.97.212.162'
+      };
+  
+      var config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `${url_apify}/payment/session/create`,
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        data: data
+      };
+  
+      const response = await axios(config);
+  
+      // Aquí seleccionamos solo los datos relevantes para evitar referencias circulares
+      const responseData = {
+        success: response.data.success,
+        titleResponse: response.data.titleResponse,
+        textResponse: response.data.textResponse,
+        lastAction: response.data.lastAction,
+        sessionId: response.data.data.sessionId,
+      };
+  
+      console.log("hola22222222", responseData);
+  
+      // Devuelve solo los datos relevantes de la respuesta
+      return responseData;
     } catch (error) {
-        console.log(error);
+      console.log(error);
+      throw error;
     }
-}
-
-
-
-module.exports= makePaymentWithToken
+  }
+  
+  module.exports = makePaymentWithToken;
+  

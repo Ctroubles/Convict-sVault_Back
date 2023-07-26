@@ -1,40 +1,36 @@
-// En el archivo GenereteToken.js
 var axios = require('axios');
-var data = '';
 
-async function GenereteToken(){
+async function GenereteToken() {
+  const EPAYCO_PUBLIC_KEY = process.env.EPAYCO_PUBLIC_KEY;
+  const EPAYCO_PRIVATE_KEY = process.env.EPAYCO_PRIVATE_KEY;
+  const clientId = '961313';
 
-    const PUBLIC_KEY = '1a02a3f2392309fd85fd25fdc12c3d09';
-    const PRIVATE_KEY = '3fe08a4dfcc9394510c1700814422855';
-    const clientId = '961313';
-    
-    var url_apify = 'https://apify.epayco.co/';
-    var config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: `${url_apify}login`,
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Basic ${Buffer.from(`${PUBLIC_KEY}:${PRIVATE_KEY}`).toString('base64')}`,
-        },
-        data: data
-    };
-    
-    try {
-        const response = await axios(config);
-        const token = response.data.token;
-        return token;
-    } catch (error) {
-        console.log(error);
-        return null;
-    }
+  var url_apify = 'https://apify.epayco.co/';
+  var data = ''; // Debes asignar aquí los datos necesarios para generar el token
+
+  var config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `${url_apify}login`,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Basic ${Buffer.from(`${EPAYCO_PUBLIC_KEY}:${EPAYCO_PRIVATE_KEY}`).toString('base64')}`,
+    },
+    data: data
+  };
+
+  try {
+    const response = await axios(config);
+    const token = response.data.token;
+    return token;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 }
 
 module.exports = GenereteToken;
 
-    
-    
-    
     
     
     
