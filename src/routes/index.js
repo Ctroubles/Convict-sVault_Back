@@ -30,113 +30,6 @@ router.use("/pagos", pagosRoutes)
 router.use("/transactions", transactionRoutes)
 
 
-// router.post('/confirmation/confirmation', async (req, res) => {
-//       const {
-//         merchantId,
-//         merchant_name,
-//         merchant_address,
-//         telephone,
-//         merchant_url,
-//         transactionState,
-//         lapTransactionState,
-//         message,
-//         referenceCode,
-//         reference_pol,
-//         transactionId,
-//         description,
-//         trazabilityCode,
-//         cus,
-//         orderLanguage,
-//         extra1,
-//         extra2,
-//         extra3,
-//         polTransactionState,
-//         signature,
-//         polResponseCode,
-//         lapResponseCode,
-//         risk,
-//         polPaymentMethod,
-//         lapPaymentMethod,
-//         polPaymentMethodType,
-//         lapPaymentMethodType,
-//         installmentsNumber,
-//         TX_VALUE,
-//         TX_TAX,
-//         currency,
-//         lng,
-//         pseCycle,
-//         buyerEmail,
-//         pseBank,
-//         pseReference1,
-//         pseReference2,
-//         pseReference3,
-//         authorizationCode,
-//         TX_ADMINISTRATIVE_FEE,
-//         TX_TAX_ADMINISTRATIVE_FEE,
-//         TX_TAX_ADMINISTRATIVE_FEE_RETURN_BASE,
-//         processingDate
-//       } = req.body;
-      
-//       try {
-//         if (transactionState === '4' && polResponseCode === '1') {
-//         const transactionData = {
-//         //   merchantId,
-//         //   merchant_name,
-//         //   merchant_address,
-//         //   telephone,
-//         //   merchant_url,
-//           state:transactionState,
-//         //   lapTransactionState,
-//         //   message,
-//         //   referenceCode,
-//         //   reference_pol,
-//           transactionId,
-//           description,
-//         //   trazabilityCode,
-//         //   cus,
-//         //   orderLanguage,
-//           extra1,
-//         //   extra2,
-//         //   extra3,
-//         //   polTransactionState,
-//         //   signature,
-//           polResponseCode,
-//         //   lapResponseCode,
-//         //   risk,
-//         //   polPaymentMethod,
-//         //   lapPaymentMethod,
-//         //   polPaymentMethodType,
-//         //   lapPaymentMethodType,
-//         //   installmentsNumber,
-//           total:TX_VALUE,
-//         //   TX_TAX,
-//         //   currency,
-//         //   lng,
-//         //   pseCycle,
-//         //   buyerEmail,
-//         //   pseBank,
-//         //   pseReference1,
-//         //   pseReference2,
-//         //   pseReference3,
-//         //   authorizationCode,
-//         //   TX_ADMINISTRATIVE_FEE,
-//         //   TX_TAX_ADMINISTRATIVE_FEE,
-//         //   TX_TAX_ADMINISTRATIVE_FEE_RETURN_BASE,
-//         //   processingDate
-//         };
-    
-//         const newTransaction = await createTransaction(transactionData);
-//           return res.status(200).send(transactionData);
-//     }else{
-//         res.status(403).send("algo salio maaaaaaal")
-//     }
-         
-//       } catch (error) {
-//         return res.status(411).send(error.message);
-//       }
-//     });
-
-
     router.get('/generate-token', async (req, res) => {
       try {
         const token = await GenereteToken();
@@ -189,13 +82,8 @@ router.use("/transactions", transactionRoutes)
 
     router.get('/metodos-pago', async (req, res) => {
       try {
-        // Aquí obtienes el token necesario para realizar la solicitud
-        const token = await GenereteToken(); // Asegúrate de tener la función GenereteToken correctamente implementada
-        
-        // Llamas a la función MetodosDePago para obtener los métodos de pago
+        const token = await GenereteToken();
         const response = await MetodosDePago(token);
-        
-        // Envías la respuesta al cliente
         res.json(response.data);
       } catch (error) {
         console.log(error);
@@ -252,8 +140,6 @@ router.use("/transactions", transactionRoutes)
         res.status(400).json({ message: 'Error al crear la transacción con Efecty' });
       }
     });
-
-
     router.post('/transaction/credito', async (req, res) => {
       try {
         const token = await GenereteToken();
@@ -268,20 +154,4 @@ router.use("/transactions", transactionRoutes)
       }
     });
 
-
-
-
-    // router.post('/validate-restrictive-list', async (req, res) => {
-    //   try {
-    //     const jwt_token = 'YOUR_JWT_TOKEN'; // Reemplaza con tu token JWT válido
-    //     const result = await validateRestrictiveList(jwt_token);
-    
-    //     // Aquí puedes enviar la respuesta al cliente con el resultado
-    //     res.json(result);
-    //   } catch (error) {
-    //     console.log(error);
-    //     res.status(500).json({ message: 'Error during validation' });
-    //   }
-    // });
-
-module.exports = router;
+module.exports= router

@@ -7,7 +7,7 @@ async function MetodosDePago(token){
     var config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `${url_apify}/transaction/payment/methods`,
+        url: `${url_apify}transaction/payment/methods`,
         headers: { 
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
@@ -16,6 +16,7 @@ async function MetodosDePago(token){
     
     try {
         const response = await axios(config);
+        console.log(response.data)
         return response.data; // Devuelve los métodos de pago obtenidos
       } catch (error) {
         console.log(error);

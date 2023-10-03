@@ -2,7 +2,7 @@
 const axios = require('axios');
 
 function validateRestrictiveList(jwt_token) {
-  const url_apify = 'https://apify.epayco.co'; // Asegúrate de que esta URL sea correcta
+  const url_apify = 'https://apify.epayco.co';
 
   const data = JSON.stringify({
     "docNumber": 1035863428,
@@ -22,6 +22,7 @@ function validateRestrictiveList(jwt_token) {
 
   return axios(config)
     .then(function (response) {
+      console.log(response.data)
       return response.data;
     })
     .catch(function (error) {

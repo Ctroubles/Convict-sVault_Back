@@ -18,16 +18,14 @@ async function makePaymentWithToken(token, datos) {
       var config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: `${url_apify}/payment/session/create`,
+        url: `${url_apify}payment/session/create`,
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         data: data
       };
-  
       const response = await axios(config);
-  
       // Aquí seleccionamos solo los datos relevantes para evitar referencias circulares
       const responseData = {
         success: response.data.success,
