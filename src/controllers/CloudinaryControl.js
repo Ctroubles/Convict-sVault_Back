@@ -13,7 +13,7 @@ cloudinary.config({
   secure: true
 });
 
-// Configuración de multer para almacenar los archivos en el directorio "uploads"
+
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   // folder: 'uploads',
