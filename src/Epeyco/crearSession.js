@@ -11,7 +11,7 @@ async function makePaymentWithToken(token, datos) {
         currency:datos.currency || 'cop',
         amount:datos.amount || '10000',
         country:datos.country || 'CO',
-        test:datos.test || 'true',
+        test:true,
         ip:datos.ip || '186.97.212.162'
       };
   
