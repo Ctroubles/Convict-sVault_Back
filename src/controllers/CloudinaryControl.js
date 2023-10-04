@@ -8,7 +8,8 @@ const uploadProducts = Router();
 cloudinary.config({
   cloud_name: "dfu27fldw",
   api_key: "992184143386788",
-  api_secret: "Bq9jRJgMWTwBqzxwTVBESzal5Uo"
+  api_secret: "Bq9jRJgMWTwBqzxwTVBESzal5Uo",
+  secure: true
 });
 
 // Configuración de multer para almacenar los archivos en el directorio "uploads"
@@ -49,9 +50,9 @@ uploadProducts.post("/", upload.single('image'), async (req, res) => {
     const result = await uploadImage(imagePath);
     const { name, category, price, brand, stock } = req.body;
 
-    // Obtener la URL segura desde result.secure_url
+
     const imageUrl = result.secure_url;
-    // console.log({"result": result})
+
 
     const newObject = {
       name: name,
