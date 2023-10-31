@@ -57,7 +57,7 @@ uploadProducts.post("/", upload.single('image'), async (req, res) => {
       price: price,
       brand: brand,
       stock: stock,
-      image: imageUrl // Guardar la URL segura en lugar de la ruta local
+      image: imageUrl 
     }
 
     const newProduct = await createProduct(newObject);

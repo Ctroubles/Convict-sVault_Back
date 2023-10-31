@@ -16,6 +16,8 @@ const createTransactionPSE = require('../Epeyco/pse/CreateTransactionPSE');
 const confirmation = require('../Epeyco/pse/confirmationPSE.JS');
 const efecty = require('../Epeyco/efectivo/efectivo');
 const credito = require('../Epeyco/credito/credito');
+const trannsactionDtail = require('../Epeyco/detallesTranasaction');
+
 
 const router = Router();
 
@@ -40,7 +42,17 @@ router.use("/transactions", transactionRoutes)
       }
     });
 
-
+    
+    router.get('/transaction/details', async (req, res)=>{
+      try {
+        const token = await GenereteToken();
+        const response = await trannsactionDtail(token);
+        res.json(response.data)
+      } catch (error) {
+        console.log(error)
+        res.status(400).json({ message: 'Error al obtener los detalles de la transaccion' })
+      }
+    })
     router.post('/session', async (req, res) => {
       try {
         const datos= {

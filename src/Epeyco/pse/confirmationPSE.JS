@@ -12,7 +12,7 @@ async function confirmation(token, transactionID){
         method: 'post',
         maxBodyLength: Infinity,
         url: `${url_apify}payment/pse/transaction`,
-        headers: { 
+        headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
         },

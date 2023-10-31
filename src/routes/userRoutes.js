@@ -194,7 +194,7 @@ userRoutes.delete("/update/address/:userId/:id", async(req, res)=>{
       const { userId, email, name } = req.body;
   
       // Genera el token de verificación
-      const verificationToken = jwt.sign({ userId }, secretKey);
+      const verificationToken = jwt.sign({ userId:userId }, secretKey);
       const verificationLink = `http://localhost:3000/verify?token=${verificationToken}`;
   
       // Configura el transportador de nodemailer
@@ -207,7 +207,9 @@ userRoutes.delete("/update/address/:userId/:id", async(req, res)=>{
           pass: 'jgfdwgttbsagfqex',
         },
       });
-  
+      transporter.verify().then(()=>{
+        console.log("Ready fpr send emails")
+    })
       // Envía el correo electrónico
       const logoUrl= `https://res.cloudinary.com/dfu27fldw/image/upload/v1688583817/logorecortadoooooo_1_fyaka2.png`
       const info = await transporter.sendMail({
