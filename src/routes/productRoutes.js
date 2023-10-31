@@ -51,7 +51,7 @@ productRoutes.get("/category/:category", async(req, res)=>{
     const {category}= req.params;
     try {
         const result= await findByCategory(category)
-        res.status(201).send(result)
+        res.status(200).send(result)
     } catch (error) {
         res.status(404).send(error.message)
     }

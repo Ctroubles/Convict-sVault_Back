@@ -5,7 +5,7 @@ async function transactionDetail(token) {
     const url_apify = 'https://apify.epayco.co'; // Verifica el URL correcto
     const data = JSON.stringify({
       "filter": {
-        "referencePayco": 172879105
+        "referencePayco": 172885117
       }
     });
 
