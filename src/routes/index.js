@@ -32,20 +32,20 @@ router.use("/pagos", pagosRoutes)
 router.use("/transactions", transactionRoutes)
 
 
-router.get('/confirmation-epayco', (req, res) => {
+router.post('/confirmation-epayco', (req, res) => {
   try {
     const datosEpayco = req.body;
     
     // Aquí puedes acceder a datos específicos de la respuesta
     const x_ref_payco = datosEpayco.x_ref_payco;
     const x_transaction_id = datosEpayco.x_transaction_id;
-    console.log(x_ref_payco)
+    console.log(x_ref_payco);
     // ... y otros campos que necesites
     
-    // Realiza acciones adicionales según los datos recibidos
+    // Realiza acciones adicionales según los datos recibos
     // Por ejemplo, actualiza el estado de la transacción en tu base de datos
     
-    res.status(200).json({ message: `Datos de ePayco recibidos exitosamente ${datosEpayco}` });
+    res.status(200).json({ message: `Datos de ePayco recibidos exitosamente ${x_ref_payco}` });
   } catch (error) {
     res.status(500).json({ error: 'Error al procesar los datos de ePayco' });
   }
