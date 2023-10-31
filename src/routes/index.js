@@ -34,17 +34,30 @@ router.use("/transactions", transactionRoutes)
 
 router.post('/confirmation-epayco', (req, res) => {
   try {
-    const datosEpayco = req.body;
+    // Obtén el valor de x_ref_payco de la URL de confirmación
+    const x_ref_payco = req.query.x_ref_payco;
+    console.log(x_ref_payco)
     
-    const x_ref_payco = datosEpayco.x_ref_payco;
-    const x_transaction_id = datosEpayco.MetodosDePago;
-    console.log(datosEpayco);
-    
-    res.status(200).json({ message: `Datos de ePayco recibidos exitosamente ${JSON.stringify(datosEpayco)}` });
+    // Asegúrate de que los datos se almacenan en un objeto como en el ejemplo anterior
+    const datosEpayco = {
+      x_ref_payco: x_ref_payco,
+      // Otras propiedades si es necesario
+    };
+
+    // Envía x_ref_payco en la respuesta JSON
+    res.status(200).json(datosEpayco);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Error al procesar los datos de ePayco' });
   }
 });
+
+
+
+
+
+
+
 
 
 
