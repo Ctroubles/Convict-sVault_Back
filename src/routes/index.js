@@ -45,7 +45,7 @@ router.post('/confirmation-epayco', (req, res) => {
     // Realiza acciones adicionales según los datos recibidos
     // Por ejemplo, actualiza el estado de la transacción en tu base de datos
     
-    res.status(200).json({ message: `Datos de ePayco recibidos exitosamente ${datosEpayco[0]}` });
+    res.status(200).json({ message: `Datos de ePayco recibidos exitosamente ${datosEpayco}` });
   } catch (error) {
     res.status(500).json({ error: 'Error al procesar los datos de ePayco' });
   }
