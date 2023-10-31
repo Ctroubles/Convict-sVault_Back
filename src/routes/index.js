@@ -32,7 +32,7 @@ router.use("/pagos", pagosRoutes)
 router.use("/transactions", transactionRoutes)
 
 
-    router.get('/confirmation',  (req, res)=>{
+    router.post('/confirmation',  (req, res)=>{
       try {
         const datosEpayco = req.body;
         res.status(200).send(datosEpayco)
