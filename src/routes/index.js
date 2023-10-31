@@ -32,6 +32,17 @@ router.use("/pagos", pagosRoutes)
 router.use("/transactions", transactionRoutes)
 
 
+    router.get('/confirmation',  (req, res)=>{
+      try {
+        const datosEpayco = req.body;
+        res.status(200).send(datosEpayco)
+      } catch (error) {
+        res.status(404).send(error)
+      }
+      
+    })
+
+
     router.get('/generate-token', async (req, res) => {
       try {
         const token = await GenereteToken();
