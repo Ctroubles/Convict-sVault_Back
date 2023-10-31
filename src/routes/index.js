@@ -32,15 +32,25 @@ router.use("/pagos", pagosRoutes)
 router.use("/transactions", transactionRoutes)
 
 
-    router.post('/confirmation',  (req, res)=>{
-      try {
-        const datosEpayco = req.body;
-        res.status(200).send(datosEpayco)
-      } catch (error) {
-        res.status(404).send(error)
-      }
-      
-    })
+router.post('/confirmation', (req, res) => {
+  try {
+    const datosEpayco = req.body;
+    
+    // Aquí puedes acceder a datos específicos de la respuesta
+    const x_ref_payco = datosEpayco.x_ref_payco;
+    const x_transaction_id = datosEpayco.x_transaction_id;
+    console.log(x_ref_payco)
+    // ... y otros campos que necesites
+    
+    // Realiza acciones adicionales según los datos recibidos
+    // Por ejemplo, actualiza el estado de la transacción en tu base de datos
+    
+    res.status(200).json({ message: `Datos de ePayco recibidos exitosamente ${x_ref_payco}` });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al procesar los datos de ePayco' });
+  }
+});
+
 
 
     router.get('/generate-token', async (req, res) => {
