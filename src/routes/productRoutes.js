@@ -75,7 +75,7 @@ productRoutes.delete("/:id", async(req, res)=>{
     }
 })
 
-productRoutes.put("/:id", async (req, res) => {
+productRoutes.put("/put/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const data = req.body;
