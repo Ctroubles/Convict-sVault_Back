@@ -69,15 +69,15 @@ transactionRoutes.get('/ingresos', async (req, res) => {
 // Ruta para crear una nueva transacción
 
 transactionRoutes.post('/create', async (req, res) => {
-  const { xRefPayco, xdescription, xresponse, productId, xAmount } = req.body;
+  const { xRefPayco, xdescription, xresponse, productIds, xAmount } = req.body;
 
   // Validación de entrada
-  if (!xRefPayco || !xdescription || !xresponse || !productId) {
+  if (!xRefPayco || !xdescription || !xresponse || !productIds) {
     return res.status(400).json({ error: 'Faltan campos obligatorios' });
   }
 
   try {
-    const newTransaction = await createTransaction({ xRefPayco, xdescription, xresponse, productId, xAmount });
+    const newTransaction = await createTransaction({ xRefPayco, xdescription, xresponse, productIds, xAmount });
     res.status(201).json(newTransaction);
   } catch (error) {
     console.error(error);
@@ -89,9 +89,9 @@ transactionRoutes.post('/create', async (req, res) => {
 // Ruta para actualizar una transacción por ID
 transactionRoutes.put('/:xRefPayco', async (req, res) => {
   const { xRefPayco } = req.params;
-  const { xdescription, xresponse, productId, xAmount } = req.body;
+  const { xdescription, xresponse, productIds, xAmount } = req.body;
   try {
-    const updatedTransaction = await updateTransactionById(xRefPayco, { xdescription, xresponse, productId, xAmount, xRefPayco });
+    const updatedTransaction = await updateTransactionById(xRefPayco, { xdescription, xresponse, productIds, xAmount, xRefPayco });
     if (!updatedTransaction) {
       return res.status(404).json({ error: 'Transacción no encontrada' });
     }

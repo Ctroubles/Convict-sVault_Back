@@ -24,9 +24,9 @@ const getTransactionById = async (xRefPayco) => {
   }
 };
 
-const createTransaction = async ({ xdescription, xresponse, productId, xAmount,  xRefPayco }) => {
+const createTransaction = async ({ xdescription, xresponse, productIds, xAmount,  xRefPayco }) => {
   try {
-    console.log("hola", xdescription, xresponse, productId, xAmount, xRefPayco);
+    console.log("hola", xdescription, xresponse, productIds, xAmount, xRefPayco);
 
     // Intenta encontrar una transacción existente con el mismo xRefPayco
     const existingTransaction = await Compras.findOne({ xRefPayco });
@@ -37,7 +37,7 @@ const createTransaction = async ({ xdescription, xresponse, productId, xAmount, 
     }
 
     // Si no existe, crea una nueva transacción
-    const data = { xdescription, xresponse, productId, xAmount, xRefPayco };
+    const data = { xdescription, xresponse, productIds, xAmount, xRefPayco };
     const newTransaction = await Compras.create(data);
     return newTransaction;
   } catch (error) {
@@ -47,9 +47,9 @@ const createTransaction = async ({ xdescription, xresponse, productId, xAmount, 
 
 
 
-const updateTransactionById = async (xRefPayco, { xdescription, xresponse, productId, xAmount }) => {
+const updateTransactionById = async (xRefPayco, { xdescription, xresponse, productIds, xAmount }) => {
   try {
-    return await Compras.findByIdAndUpdate(xRefPayco, { xdescription, xresponse, productId, xAmount }, { new: true });
+    return await Compras.findByIdAndUpdate(xRefPayco, { xdescription, xresponse, productIds, xAmount }, { new: true });
   } catch (error) {
     throw new Error(error.message);
   }
