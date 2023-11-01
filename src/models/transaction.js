@@ -26,7 +26,7 @@ const ComprasSchema = new Schema({
     enum: ['Aceptada', 'Rechazada', 'Cancelada'],
     default: 'Cancelada',
   },
-  productIds: {
+  productId: {
     type: Array,
     required: true,
   }

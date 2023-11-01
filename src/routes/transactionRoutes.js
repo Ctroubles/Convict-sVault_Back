@@ -69,15 +69,15 @@ transactionRoutes.get('/ingresos', async (req, res) => {
 // Ruta para crear una nueva transacción
 
 transactionRoutes.post('/create', async (req, res) => {
-  const { xRefPayco, xdescription, xresponse, productIds, xAmount } = req.body;
+  const { xRefPayco, xdescription, xresponse, productId, xAmount } = req.body;
 
   // Validación de entrada
-  if (!xRefPayco || !xdescription || !xresponse || !productIds) {
+  if (!xRefPayco || !xdescription || !xresponse || !productId) {
     return res.status(400).json({ error: 'Faltan campos obligatorios' });
   }
 
   try {
-    const newTransaction = await createTransaction({ xRefPayco, xdescription, xresponse, productIds, xAmount });
+    const newTransaction = await createTransaction({ xRefPayco, xdescription, xresponse, productId, xAmount });
     res.status(200).json(newTransaction);
   } catch (error) {
     console.error(error);
