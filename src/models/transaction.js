@@ -27,7 +27,7 @@ const ComprasSchema = new Schema({
     default: 'Cancelada',
   },
   productIds: {
-    type: String,
+    type: Array,
     required: true,
   }
 });

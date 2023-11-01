@@ -80,7 +80,7 @@ productRoutes.put("/:id", async (req, res) => {
         const { id } = req.params;
         const data = req.body;
         const updatedProduct = await updateProducts(id, data);
-        res.status(200).send({ status: "The product was updated successfully", product: updatedProduct });
+        res.status(200).send( updatedProduct );
     } catch (error) {
       res.status(400).send(error.message);
     }

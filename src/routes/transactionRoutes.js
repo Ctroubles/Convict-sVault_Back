@@ -78,7 +78,7 @@ transactionRoutes.post('/create', async (req, res) => {
 
   try {
     const newTransaction = await createTransaction({ xRefPayco, xdescription, xresponse, productIds, xAmount });
-    res.status(201).json(newTransaction);
+    res.status(200).json(newTransaction);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error interno del servidor' });
