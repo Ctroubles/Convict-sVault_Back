@@ -1,18 +1,18 @@
 const { Schema, model }= require("mongoose");
 
 // Definición del esquema de la transacción
-const transactionSchema= new Schema({
-  transactionId: {
-    type: String,
-    required: true,
-    unique: true,
+const ComprasSchema = new Schema({
+  xRefPayco: {
+    type: String, // Configura el tipo de campo como String
+    unique: true, // Asegura que sea único
+    required: true, // Asegura que sea requerido
   },
-  total: {
+  xAmount: {
     type: String,
     required: true,
     min: 0,
   },
-  description: {
+  xdescription: {
     type: String,
     required: true,
   },
@@ -21,14 +21,18 @@ const transactionSchema= new Schema({
     required: true,
     default: Date.now,
   },
-  state: {
+  xresponse: {
     type: String,
-    enum: ['4', '5', '6', '7', '104'],
-    default: '7',
+    enum: ['Aceptada', 'Rechazada', 'Cancelada'],
+    default: 'Cancelada',
   },
+  productId: {
+    type: String,
+    required: true,
+  }
 });
 
 // Creación del modelo Transaction basado en el esquema
-const Transaction = model('Transaction', transactionSchema);
+const Compras = model('Compras', ComprasSchema);
 
-module.exports = Transaction;
+module.exports = Compras;
