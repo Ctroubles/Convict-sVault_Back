@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const {getAllUsers, getUser, getDB, getUserDb} = require("../controllers/user/getUser.js")
+const {getAllUsers, getUser, getDB, getUserDb, getUserById} = require("../controllers/user/getUser.js")
 const createUser = require("../controllers/user/createUser")
 const {deleteUser, activateUser, updateUser, giveAdmin, removeAdmin, addOrder, updateUserAdrees, deleteAddress, updateAddressById} = require('../controllers/user/updateUser.js');
 const nodemailer = require('nodemailer');
@@ -21,6 +21,17 @@ userRoutes.get("/", async (req, res) =>{
         res.status(404).send(error.message)
     }
 })
+
+userRoutes.get('/usersById/:userId', async (req, res) => {
+    const userId = req.params.userId;
+  
+    try {
+      const user = await getUserById(userId);
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
 
  userRoutes.get("/db", async(req, res)=>{
     try {
@@ -184,6 +195,19 @@ userRoutes.delete("/update/address/:userId/:id", async(req, res)=>{
     }
  })
 
+ userRoutes.post('/addOrder/:userId', async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const productId = req.body.productId; // Suponiendo que el productId se envía en el cuerpo de la solicitud
+  
+      // Llama al controlador para agregar el pedido
+      await addOrder(userId, productId);
+  
+      return res.status(200).json({ message: 'Producto agregado con éxito a la lista de pedidos.' });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  });
 
  ///////////send email ////////////////////
 

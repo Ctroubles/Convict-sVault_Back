@@ -18,6 +18,31 @@ const auth00 = new ManagementClient({
     
  }
 
+ const getUserById = async (userId) => {
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new Error("Usuario no encontrado");
+    }
+
+    return user;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+// Ejemplo de uso:
+const userId = "tu_id_de_usuario";
+getUserById(userId)
+  .then((user) => {
+    console.log("Usuario encontrado:", user);
+  })
+  .catch((error) => {
+    console.error("Error al obtener el usuario:", error.message);
+  });
+
+
  const getUser = async (useremail) => {
   try {
     return await auth00.users.getByEmail(useremail);
@@ -45,4 +70,4 @@ const auth00 = new ManagementClient({
 
 
 
-module.exports= {getAllUsers, getUser, getDB, getUserDb}
+module.exports= {getAllUsers, getUser, getDB, getUserDb, getUserById}
