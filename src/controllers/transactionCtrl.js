@@ -24,9 +24,9 @@ const getTransactionById = async (xRefPayco) => {
   }
 };
 
-const createTransaction = async ({ xdescription, xresponse, productId, xAmount,  xRefPayco }) => {
+const createTransaction = async ({ xdescription, xresponse, productIds, xAmount,  xRefPayco }) => {
   try {
-    console.log("hola", xdescription, xresponse, productId, xAmount, xRefPayco);
+    console.log("hola", xdescription, xresponse, productIds, xAmount, xRefPayco);
 
     // Intenta encontrar una transacción existente con el mismo xRefPayco
     const existingTransaction = await Compras.findOne({ xRefPayco });
